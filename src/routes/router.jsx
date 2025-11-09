@@ -5,6 +5,7 @@ import AllMovies from "../pages/AllMovies/AllMovies";
 import MyCollections from "../pages/MyCollections/MyCollections";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import MovieDetails from "../pages/MovieDetails/MovieDetails";
 
 
 
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
          {
          path:"/register",
          element:<Register></Register>   
+        },
+        
+         {
+         path:"/movie-details/:title",
+         element:<MovieDetails></MovieDetails>  
         },
     ]
   },

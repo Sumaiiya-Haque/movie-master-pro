@@ -1,9 +1,19 @@
-import React, { useState, } from "react";
+import React, { use, useState, } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../../providers/AuthProvider";
 
 
-const Navbar = ({ user, handleLogout }) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+   const { user, logOut } = use(AuthContext);
+// { user, handleLogout }
+     const handleLogout = () => {
+    logOut()
+      .then(() => {
+        console.log("User logged out");
+      })
+      .catch((error) => console.error(error));
+  };
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 bg-black/70 text-white fixed w-full z-50 backdrop-blur-md">
@@ -36,7 +46,7 @@ const Navbar = ({ user, handleLogout }) => {
               {user.displayName || "Profile"}
             </button>
             <div className="absolute hidden group-hover:block right-0 bg-gray-800 rounded-lg mt-2 py-2 w-40">
-              {/* <Link to="/profile" className="block px-4 py-2 hover:bg-gray-700">My Profile</Link> */}
+              <Link to="/profile" className="block px-4 py-2 hover:bg-gray-700">My Profile</Link>
               <button
                 onClick={handleLogout}
                 className="block px-4 py-2 w-full text-left hover:bg-gray-700"

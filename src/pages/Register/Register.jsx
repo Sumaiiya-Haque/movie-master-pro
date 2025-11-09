@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, {  useContext,  useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
 import { FaEye, FaGoogle } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
-import { auth } from "../firebase/firebase.config";
+import { auth } from "../../firebase/firebase.config";
 import { GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 

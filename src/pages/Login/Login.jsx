@@ -1,6 +1,6 @@
 import React, { use, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
 import { IoEyeOff } from "react-icons/io5";
 import { FaEye } from "react-icons/fa";
@@ -10,7 +10,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
-import { auth } from "../firebase/firebase.config";
+import { auth } from "../../firebase/firebase.config";
 
 const googleProvider = new GoogleAuthProvider();
 

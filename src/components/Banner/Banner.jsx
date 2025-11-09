@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion} from "framer-motion";
+import { Link } from "react-router";
 
 const Banner = () => {
   const [featuredMovies, setFeaturedMovies] = useState([]);
@@ -63,7 +64,7 @@ const Banner = () => {
         </motion.p>
 
         <Link
-          to="/movies"
+          to="/all-movies"
           className="mt-6 px-6 py-3 bg-yellow-400 text-black font-bold rounded-full hover:bg-yellow-300 transition"
         >
           Explore Now →

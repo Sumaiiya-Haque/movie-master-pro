@@ -1,56 +1,19 @@
 import React, { useContext } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useLoaderData } from "react-router";
 import { AuthContext } from "../../providers/AuthProvider"; 
+import { toast } from "react-toastify";
 
-const sampleMovies = [
-  {
-    title: "Inception",
-    genre: "Sci-Fi",
-    releaseYear: 2010,
-    director: "Christopher Nolan",
-    cast: "Leonardo DiCaprio, Joseph Gordon-Levitt",
-    rating: 8.8,
-    duration: 148,
-    plotSummary: "A thief who steals corporate secrets through dream-sharing technology...",
-    posterUrl: "https://i.ibb.co/example.jpg",
-    language: "English",
-    country: "USA",
-    addedBy: "user@example.com",
-  },
-  {
-    title: "Interstellar",
-    genre: "Adventure",
-    releaseYear: 2014,
-    director: "Christopher Nolan",
-    cast: "Matthew McConaughey, Anne Hathaway",
-    rating: 8.6,
-    duration: 169,
-    plotSummary: "A team travels through a wormhole in search of a new home for humanity...",
-    posterUrl: "https://i.ibb.co/2j9N9bM/interstellar.jpg",
-    language: "English",
-    country: "USA",
-    addedBy: "user2@example.com",
-  },
-];
+
 
 const MovieDetails = () => {
-  const { title } = useParams(); 
+  const data = useLoaderData()
+  // const id = useParams()
+  const movie = data.result;
+  console.log(movie)
+
   const { user } = useContext(AuthContext);
 
-  const movie = sampleMovies.find(
-    (m) => m.title.toLowerCase() === title.toLowerCase()
-  );
 
-  if (!movie) {
-    return (
-      <div className="text-center text-red-500 mt-10">
-        <h2>❌ Movie not found!</h2>
-        <Link to="/all-movies" className="text-blue-500 underline">
-          Back to All Movies
-        </Link>
-      </div>
-    );
-  }
 
   const isOwner = user?.email === movie.addedBy;
 
@@ -80,13 +43,13 @@ const MovieDetails = () => {
       {isOwner && (
         <div className="flex gap-4 mt-6">
           <Link
-            to={`/edit/${movie.title}`}
+            to={`/edit-details/${movie._id}`}
             className="bg-blue-600 px-5 py-2 rounded-lg hover:bg-blue-700"
           >
             ✏️ Edit
           </Link>
           <button
-            onClick={() => alert("Delete function yet to implement")}
+            onClick={() => toast("Delete function yet to implement")}
             className="bg-red-600 px-5 py-2 rounded-lg hover:bg-red-700"
           >
             🗑️ Delete

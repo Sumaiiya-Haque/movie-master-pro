@@ -14,14 +14,22 @@ const AllMovies = () => {
         {movies.map((movie) => (
           <div
             key={movie._id}
-            className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition-transform duration-300"
+            className=
+            "bg-gray-800 rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition-all duration-300"
+            
           >
           
-            <img
+            {/* <img
               src={movie.posterUrl}
               alt={movie.title}
               className="w-full h-64 object-cover"
-            />
+            /> */}
+
+            <img
+  src={movie.posterUrl || "https://via.placeholder.com/300x400?text=No+Image"}
+  alt={movie.title}
+  className="w-full h-64 object-cover"
+/>
 
             
             <div className="p-4">
@@ -42,7 +50,7 @@ const AllMovies = () => {
               
               <div className="mt-4 text-center">
                 <Link
-                  to={`/movie-details/${movie.title}`}
+                  to={`/movie-details/${movie._id}`}
                   className="inline-block bg-yellow-400 w-full hover:bg-orange-400 text-white px-4 py-2 rounded-lg font-medium transition"
                 >
                   Details

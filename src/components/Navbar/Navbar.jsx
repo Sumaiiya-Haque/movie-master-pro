@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center px-6 py-4 bg-black/70 text-white fixed w-full z-50 backdrop-blur-md">
+    <nav className="flex justify-between backdrop-blur-md items-center px-6 py-4 bg-black/70 text-white fixed w-full z-50 ">
       {/* Logo */}
       <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-yellow-400">
         <span role="img" aria-label="movie">🎬</span> MovieMaster
@@ -27,6 +27,7 @@ const Navbar = () => {
         <li><Link to="/" className="hover:text-yellow-400">Home</Link></li>
         <li><Link to="/all-movies" className="hover:text-yellow-400">All Movies</Link></li>
         <li><Link to="/my-collections" className="hover:text-yellow-400">My Collection</Link></li>
+        <li><Link to="/add-movie" className="hover:text-yellow-400">Add Movie</Link></li>
       </ul>
 
       {/* Search bar (optional) */}
@@ -74,9 +75,11 @@ const Navbar = () => {
 
       {isOpen && (
         <div className="absolute top-16 left-0 bg-black w-full p-4 flex flex-col gap-3 md:hidden">
+          
           <Link to="/" className="hover:text-yellow-400">Home</Link>
           <Link to="/all-movies" className="hover:text-yellow-400">All Movies</Link>
           <Link to="/my-collections" className="hover:text-yellow-400">My Collection</Link>
+          <Link to="/add-movie" className="hover:text-yellow-400">Add Movie</Link>
           {!user && (
             <>
               <Link to="/login">Login</Link>

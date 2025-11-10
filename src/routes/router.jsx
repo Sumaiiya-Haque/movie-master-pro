@@ -20,7 +20,8 @@ const router = createBrowserRouter([
         },
          {
          path:"/all-movies",
-         element:<AllMovies></AllMovies>   
+         element:<AllMovies></AllMovies> ,
+         loader:()=>fetch("http://localhost:3000/movies")  
         },
          {
          path:"/my-collections",

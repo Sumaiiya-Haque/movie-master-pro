@@ -7,8 +7,8 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import MovieDetails from "../pages/MovieDetails/MovieDetails";
 import AddMovie from "../pages/AddMovies/AddMovie";
-import Edit from "../pages/Edit/EditMovie";
 import EditMovie from "../pages/Edit/EditMovie";
+import MoviesByGenre from "../pages/MoviesByGenre/MoviesByGenre";
 
 
 
@@ -52,6 +52,10 @@ const router = createBrowserRouter([
         {
          path:"/add-movie",
          element:<AddMovie></AddMovie>  
+        },
+         {
+         path:"/movies-by-genres",
+         element:<MoviesByGenre></MoviesByGenre> 
         },
     ]
   },

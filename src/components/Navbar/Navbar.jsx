@@ -28,6 +28,7 @@ const Navbar = () => {
         <li><Link to="/all-movies" className="hover:text-yellow-400">All Movies</Link></li>
         <li><Link to="/my-collections" className="hover:text-yellow-400">My Collection</Link></li>
         <li><Link to="/add-movie" className="hover:text-yellow-400">Add Movie</Link></li>
+        <li><Link to="/movies-by-genres" className="hover:text-yellow-400">Movies By Genres</Link></li>
       </ul>
 
       {/* Search bar (optional) */}

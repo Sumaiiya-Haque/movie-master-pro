@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const MyCollection = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate()
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -23,14 +26,49 @@ const MyCollection = () => {
   }, [user]);
 
  
-  const handleDelete = (id) => {
-    fetch(`http://localhost:3000/movies/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then(() => {
-        setMovies(movies.filter((m) => m._id !== id));
-      });
+  // const handleDelete = (id) => {
+  //   fetch(`http://localhost:3000/movies/${id}`, {
+  //     method: "DELETE",
+  //   })
+  //     .then((res) => res.json())
+  //     .then(() => {
+  //       setMovies(movies.filter((m) => m._id !== id));
+  //     });
+  // };
+
+
+  // Delete handler
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+     
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/movies/${movie._id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Delete response:", data);
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your movie has been deleted.",
+              icon: "success"
+            });
+            navigate("/my-collections"); 
+          })
+          .catch((err) => {
+            console.error(err);
+            toast.error("Delete failed!");
+          });
+      }
+    });
   };
 
   return (
@@ -58,17 +96,26 @@ const MyCollection = () => {
               <div className="flex justify-between mt-3">
                 <Link
                   to={`/edit-details/${movie._id}`}
-                  className="bg-yellow-500 px-3 py-1 rounded hover:bg-yellow-400 text-black font-semibold"
+                  className="bg-yellow-500 px-15 py-1 rounded hover:bg-yellow-400 text-black font-semibold"
                 >
                   Edit
                 </Link>
                 <button
-                  onClick={() => handleDelete(movie._id)}
-                  className="bg-red-500 px-3 py-1 rounded hover:bg-red-400 text-white font-semibold"
+                  onClick={handleDelete}
+                  className="bg-red-500 px-15 py-1 rounded hover:bg-red-400 text-white font-semibold"
                 >
                   Delete
                 </button>
+                
               </div>
+              <div className="mt-4 text-center">
+                              <Link
+                                to={`/movie-details/${movie._id}`}
+                                className="inline-block bg-yellow-400 w-full hover:bg-orange-400 text-white px-4 py-2 rounded-lg font-medium transition"
+                              >
+                              View  Details
+                              </Link>
+                            </div>
             </div>
           ))}
         </div>

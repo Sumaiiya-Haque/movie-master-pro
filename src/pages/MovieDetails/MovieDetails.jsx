@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { useParams, Link, useLoaderData, useNavigate } from "react-router";
+import {  Link, useLoaderData, useNavigate } from "react-router";
 import { AuthContext } from "../../providers/AuthProvider"; 
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 
 
@@ -12,24 +13,40 @@ const MovieDetails = () => {
   const movie = data.result;
   console.log(movie)
 
-  // 🗑 Delete handler
+// Delete handler
 const handleDelete = () => {
-  if (window.confirm("Are you sure you want to delete this movie?")) {
-    fetch(`http://localhost:3000/movies/${movie._id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Delete response:", data);
-        toast.success("🗑 Movie deleted successfully!");
-        navigate("/my-collections"); // Delete এর পর redirect
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+   
+    if (result.isConfirmed) {
+      fetch(`http://localhost:3000/movies/${movie._id}`, {
+        method: "DELETE",
       })
-      .catch((err) => {
-        console.error(err);
-        toast.error("❌ Delete failed!");
-      });
-  }
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Delete response:", data);
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your movie has been deleted.",
+            icon: "success"
+          });
+          navigate("/my-collections"); 
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error("Delete failed!");
+        });
+    }
+  });
 };
+
 
 
   const { user } = useContext(AuthContext);
@@ -60,21 +77,21 @@ const handleDelete = () => {
         <p><strong>Added By:</strong> {movie.addedBy}</p>
       </div>
 
-      {/* Owner-only buttons */}
+      
       {isOwner && (
         <div className="flex gap-4 mt-6">
           <Link
             to={`/edit-details/${movie._id}`}
             className="bg-blue-600 px-5 py-2 rounded-lg hover:bg-blue-700"
           >
-            ✏️ Edit
+             Edit
           </Link>
         <button
   type="button"
   onClick={handleDelete}
   className="w-full bg-red-600 text-white font-semibold py-3 rounded-lg hover:bg-red-500 transition-colors cursor-pointer mt-3"
 >
-  🗑 Delete Movie
+   Delete Movie
 </button>
         </div>
       )}

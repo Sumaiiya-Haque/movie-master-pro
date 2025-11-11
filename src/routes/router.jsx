@@ -9,6 +9,8 @@ import MovieDetails from "../pages/MovieDetails/MovieDetails";
 import AddMovie from "../pages/AddMovies/AddMovie";
 import EditMovie from "../pages/Edit/EditMovie";
 import MoviesByGenre from "../pages/MoviesByGenre/MoviesByGenre";
+import PrivateRoute from "../providers/PrivateRoute";
+import MyProfile from "../pages/MyProfile/MyProfile";
 
 
 
@@ -28,11 +30,17 @@ const router = createBrowserRouter([
         },
          {
          path:"/my-collections",
-         element:<MyCollections></MyCollections>  
+         element:<PrivateRoute>
+          <MyCollections></MyCollections> 
+         </PrivateRoute>
         },
          {
          path:"/login",
          element:<Login></Login>   
+        },
+         {
+         path:"/my-profile",
+         element:<MyProfile></MyProfile>  
         },
          {
          path:"/register",
@@ -51,7 +59,7 @@ const router = createBrowserRouter([
         },
         {
          path:"/add-movie",
-         element:<AddMovie></AddMovie>  
+         element:<PrivateRoute><AddMovie></AddMovie>  </PrivateRoute>
         },
          {
          path:"/movies-by-genres",

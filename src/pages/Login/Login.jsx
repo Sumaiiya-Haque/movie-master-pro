@@ -53,19 +53,19 @@ const Login = () => {
       });
   };
 
-  const handleForgetPassword = () => {
-    const email = emailRef.current.value;
-    sendPasswordResetEmail(auth, email)
-      .then((res) => {
-        toast.success("Check your Email to reset Password");
-        setTimeout(() => {
-          window.open("https://mail.google.com", "_blank");
-        }, 2000);
-      })
-      .catch((e) => {
-        toast.error(e.message);
-      });
-  };
+  // const handleForgetPassword = () => {
+  //   const email = emailRef.current.value;
+  //   sendPasswordResetEmail(auth, email)
+  //     .then((res) => {
+  //       toast.success("Check your Email to reset Password");
+  //       setTimeout(() => {
+  //         window.open("https://mail.google.com", "_blank");
+  //       }, 2000);
+  //     })
+  //     .catch((e) => {
+  //       toast.error(e.message);
+  //     });
+  // };
 
   return (
     <div className=" min-h-[90vh] sm:min-h-screen flex flex-col items-center pt-8 sm:mx-0 mx-5">
@@ -112,7 +112,7 @@ const Login = () => {
 
             <div className="text-sm mt-1">
               <a
-                onClick={handleForgetPassword}
+                // onClick={handleForgetPassword}
                 className="link link-hover text-blue-600"
               >
                 Forgot password?

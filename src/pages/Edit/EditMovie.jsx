@@ -7,9 +7,9 @@ const EditMovie = () => {
   const data = useLoaderData();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const movie = data?.result || data; // যদি API `result` এর মধ্যে পাঠায়
+  const movie = data?.result || data; 
 
-  // 🧩 State prefilled with existing data
+ 
   const [movieData, setMovieData] = useState({
     title: movie?.title || "",
     genre: movie?.genre || "",
@@ -25,7 +25,7 @@ const EditMovie = () => {
     addedBy: movie?.addedBy || user?.email || "",
   });
 
-  // যদি loader data পরে আসে (async), state আপডেট করে দিন
+  
   useEffect(() => {
     if (movie) {
       setMovieData({
@@ -45,13 +45,13 @@ const EditMovie = () => {
     }
   }, [movie, user]);
 
-  // 🧠 Input change handler
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setMovieData({ ...movieData, [name]: value });
   };
 
-  // 🚀 Submit handler (PUT request for update)
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -66,11 +66,11 @@ const EditMovie = () => {
       .then((data) => {
         console.log("Update response:", data);
         toast.success("✅ Movie updated successfully!");
-        // navigate("/my-collection"); // আপডেটের পর redirect
+        navigate("/my-collections"); // 
       })
       .catch((err) => {
         console.error(err);
-        toast.error("❌ Update failed!");
+        toast.error(" Update failed!");
       });
   };
 

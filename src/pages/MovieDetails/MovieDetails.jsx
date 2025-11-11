@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useParams, Link, useLoaderData } from "react-router";
+import { useParams, Link, useLoaderData, useNavigate } from "react-router";
 import { AuthContext } from "../../providers/AuthProvider"; 
 import { toast } from "react-toastify";
 
@@ -7,9 +7,30 @@ import { toast } from "react-toastify";
 
 const MovieDetails = () => {
   const data = useLoaderData()
+  const navigate = useNavigate()
   // const id = useParams()
   const movie = data.result;
   console.log(movie)
+
+  // 🗑 Delete handler
+const handleDelete = () => {
+  if (window.confirm("Are you sure you want to delete this movie?")) {
+    fetch(`http://localhost:3000/movies/${movie._id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Delete response:", data);
+        toast.success("🗑 Movie deleted successfully!");
+        navigate("/my-collections"); // Delete এর পর redirect
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("❌ Delete failed!");
+      });
+  }
+};
+
 
   const { user } = useContext(AuthContext);
 
@@ -48,12 +69,13 @@ const MovieDetails = () => {
           >
             ✏️ Edit
           </Link>
-          <button
-            onClick={() => toast("Delete function yet to implement")}
-            className="bg-red-600 px-5 py-2 rounded-lg hover:bg-red-700"
-          >
-            🗑️ Delete
-          </button>
+        <button
+  type="button"
+  onClick={handleDelete}
+  className="w-full bg-red-600 text-white font-semibold py-3 rounded-lg hover:bg-red-500 transition-colors cursor-pointer mt-3"
+>
+  🗑 Delete Movie
+</button>
         </div>
       )}
 

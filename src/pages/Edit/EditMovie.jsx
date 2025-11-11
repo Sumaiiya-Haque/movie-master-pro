@@ -1,53 +1,83 @@
-import React, { use, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 
 const EditMovie = () => {
-    const data = useLoaderData()
-    const {user} = use(AuthContext)
-    console.log(data)
+  const data = useLoaderData();
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const movie = data?.result || data; // যদি API `result` এর মধ্যে পাঠায়
+
+  // 🧩 State prefilled with existing data
   const [movieData, setMovieData] = useState({
-    title: "",
-    genre: "",
-    releaseYear: "",
-    director: "",
-    cast: "",
-    rating: "",
-    duration: "",
-    plotSummary: "",
-    posterUrl: "",
-    language: "",
-    country: "",
-    addedBy:user.email,
+    title: movie?.title || "",
+    genre: movie?.genre || "",
+    releaseYear: movie?.releaseYear || "",
+    director: movie?.director || "",
+    cast: movie?.cast || "",
+    rating: movie?.rating || "",
+    duration: movie?.duration || "",
+    plotSummary: movie?.plotSummary || "",
+    posterUrl: movie?.posterUrl || "",
+    language: movie?.language || "",
+    country: movie?.country || "",
+    addedBy: movie?.addedBy || user?.email || "",
   });
 
+  // যদি loader data পরে আসে (async), state আপডেট করে দিন
+  useEffect(() => {
+    if (movie) {
+      setMovieData({
+        title: movie.title || "",
+        genre: movie.genre || "",
+        releaseYear: movie.releaseYear || "",
+        director: movie.director || "",
+        cast: movie.cast || "",
+        rating: movie.rating || "",
+        duration: movie.duration || "",
+        plotSummary: movie.plotSummary || "",
+        posterUrl: movie.posterUrl || "",
+        language: movie.language || "",
+        country: movie.country || "",
+        addedBy: movie.addedBy || user?.email || "",
+      });
+    }
+  }, [movie, user]);
+
+  // 🧠 Input change handler
   const handleChange = (e) => {
     const { name, value } = e.target;
     setMovieData({ ...movieData, [name]: value });
   };
 
+  // 🚀 Submit handler (PUT request for update)
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted Movie:", movieData);
-   fetch('http://localhost:3000/movies',{
-    method:'POST',
-    headers:{
-        'content-type':"application/json",
-    },
-    body:JSON.stringify(movieData),
-   }).then(res=>res.json()).then(data=>{
-    console.log(data)
-    toast.success("Successfully added Movie")
-   }).catch(err=>{
-    console.log(err)
-   })
+
+    fetch(`http://localhost:3000/movies/${movie._id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(movieData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Update response:", data);
+        toast.success("✅ Movie updated successfully!");
+        // navigate("/my-collection"); // আপডেটের পর redirect
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("❌ Update failed!");
+      });
   };
 
   return (
     <section className="max-w-2xl mx-auto mt-12 p-6 bg-gray-800 text-white rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center">🎥 Add a New Movie</h2>
-      
+      <h2 className="text-2xl font-bold mb-6 text-center">🎥 Edit Movie</h2>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Title */}
         <input
@@ -56,8 +86,7 @@ const EditMovie = () => {
           placeholder="Movie Title"
           value={movieData.title}
           onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none"
-          required
+          className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
         />
 
         {/* Genre */}
@@ -68,7 +97,6 @@ const EditMovie = () => {
           value={movieData.genre}
           onChange={handleChange}
           className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
-          required
         />
 
         {/* Release Year */}
@@ -162,14 +190,14 @@ const EditMovie = () => {
           className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
         />
 
-        {/* Added By */}
+        {/* Added By (read-only) */}
         <input
           type="email"
           name="addedBy"
           placeholder="Added by (email)"
           value={movieData.addedBy}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
+          readOnly
+          className="w-full p-3 rounded-lg bg-gray-600 border border-gray-500 text-gray-300 cursor-not-allowed"
         />
 
         {/* Submit Button */}
@@ -177,7 +205,7 @@ const EditMovie = () => {
           type="submit"
           className="w-full bg-yellow-500 text-black font-semibold py-3 rounded-lg hover:bg-yellow-400 transition-colors cursor-pointer"
         >
-          ➕ Update Movie
+          💾 Update Movie
         </button>
       </form>
     </section>

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const AboutPlatform = () => {
   return (
-    <section className="bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 text-yellow-400 py-20 px-6">
+    <section className="text-yellow-400 py-20 px-6">
       {/* Heading */}
       <motion.h2
         className="text-4xl lg:text-5xl font-bold text-center mb-6"
@@ -16,7 +16,7 @@ const AboutPlatform = () => {
 
       {/* Description */}
       <motion.p
-        className="max-w-3xl mx-auto text-gray-300 text-lg text-center mb-10"
+        className="max-w-3xl mx-auto text-gray-500 text-lg text-center mb-10"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
@@ -33,7 +33,7 @@ const AboutPlatform = () => {
         ].map((feature, index) => (
           <motion.div
             key={index}
-            className="bg-yellow-50 h-[160px] p-6 rounded-2xl shadow-lg flex-1 flex justify-center items-center flex-col text-center hover:scale-105 transition-transform duration-300"
+            className="bg-gray-800 h-[160px] p-6 rounded-2xl shadow-lg flex-1 flex justify-center items-center flex-col text-center hover:scale-105 transition-transform duration-300"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 * index, duration: 0.8 }}

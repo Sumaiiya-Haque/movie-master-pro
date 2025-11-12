@@ -6,6 +6,7 @@ import RecentlyAdded from "../components/HomePage/RecentlyAdded";
 import GenreSection from "../components/HomePage/GenreSection";
 import AboutPlatform from "../components/HomePage/AboutPlatform";
 import Statistics from "../components/HomePage/Statistics";
+import { toast } from "react-toastify";
 // import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 
 const Home = () => {
@@ -13,7 +14,7 @@ const Home = () => {
 
   const handleLogout = () => {
     setUser(null);
-    alert("Logged out successfully!");
+    toast.success("Logged out successfully!");
   };
 
   return (

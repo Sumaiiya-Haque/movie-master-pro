@@ -75,8 +75,8 @@ const EditMovie = () => {
   };
 
   return (
-    <section className="max-w-2xl mx-auto mt-12 p-6 bg-gray-800 text-white rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center">🎥 Edit Movie</h2>
+    <section className="max-w-2xl mx-auto mt-8 mb-12 p-6 bg-gray-800 text-white rounded-2xl shadow-lg">
+      <h2 className="text-2xl font-bold mb-6 text-center text-yellow-400">🎥 Edit Movie</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Title */}

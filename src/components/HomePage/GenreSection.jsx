@@ -5,7 +5,7 @@ const genres = ["Action", "Drama", "Comedy", "Horror", "Sci-Fi", "Thriller", "Ro
 
 const GenreSection = () => {
   return (
-    <section className="bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 text-yellow-400 py-20 px-6">
+    <section className="text-yellow-400 py-20 px-6">
       {/* Section Heading */}
       <motion.h2
         className="text-4xl lg:text-5xl font-bold text-center mb-12"

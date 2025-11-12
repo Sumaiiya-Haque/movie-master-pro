@@ -1,24 +1,19 @@
-import React, { use, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
 import { IoEyeOff } from "react-icons/io5";
 import { FaEye } from "react-icons/fa";
-import {
-  GoogleAuthProvider,
-  sendPasswordResetEmail,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 import { auth } from "../../firebase/firebase.config";
 
 const googleProvider = new GoogleAuthProvider();
 
 const Login = () => {
-  const { signIn } = use(AuthContext);
+  const { signIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
   const [show, setShow] = useState(false);
   const emailRef = useRef(null);
 
@@ -27,118 +22,93 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+
     signIn(email, password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        navigate(`${location.state ? location.state : "/"}`);
+      .then(() => {
+        navigate(location.state || "/");
         toast.success("Login Successfully");
       })
-      .catch((e) => {
-        toast.error(e.message);
-      });
+      .catch((e) => toast.error(e.message));
   };
 
   const handleGoogleSignIn = () => {
     signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        navigate(`${location.state ? location.state : "/"}`);
+      .then(() => {
+        navigate(location.state || "/");
         toast.success("Login Successfully");
       })
-      .catch((e) => {
-        toast.error(e.message);
-      });
+      .catch((e) => toast.error(e.message));
   };
 
-  // const handleForgetPassword = () => {
-  //   const email = emailRef.current.value;
-  //   sendPasswordResetEmail(auth, email)
-  //     .then((res) => {
-  //       toast.success("Check your Email to reset Password");
-  //       setTimeout(() => {
-  //         window.open("https://mail.google.com", "_blank");
-  //       }, 2000);
-  //     })
-  //     .catch((e) => {
-  //       toast.error(e.message);
-  //     });
-  // };
-
   return (
-    <div className=" min-h-[90vh] sm:min-h-screen flex flex-col items-center pt-8 sm:mx-0 mx-5">
-      {/* Page Title */}
-      <h2 className="text-3xl font-extrabold text-green-700 mb-8 pt-5 text-center">
+    <div className="min-h-screen flex items-center justify-center  py-10 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full bg-gray-800 p-8 rounded-2xl shadow-xl">
+        <h2 className="text-3xl font-extrabold text-center text-yellow-400 mb-8">
           Login Your Account
         </h2>
-     
 
-      {/* Login Card */}
-      <div className="card bg-base-100 w-full max-w-sm  shadow-2xl">
-        <form onSubmit={handleLogin} className="card-body">
-          <fieldset className="fieldset">
-            {/* email */}
-            <label className="label">Email</label>
+        <form onSubmit={handleLogin} className="space-y-5">
+          <div>
+            <label className="block text-gray-200 font-medium mb-1">Email</label>
             <input
               ref={emailRef}
               type="email"
               name="email"
-              className="input"
-              placeholder="Email"
+              placeholder="Enter email"
+              required
+              className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
-            <div className="relative">
-              {/* password */}
-              <label className="label">Password</label>
-              <input
-                type={show ? "text" : "password"}
-                name="password"
-                className="input"
-                placeholder="Password"
-              />
+          </div>
 
-              <span
-                onClick={() => setShow(!show)}
-                className="absolute top-8 right-8 cursor-pointer z-50"
-              >
-                {show ? (
-                  <FaEye size={15}></FaEye>
-                ) : (
-                  <IoEyeOff size={15}></IoEyeOff>
-                )}
-              </span>
-            </div>
-
-            <div className="text-sm mt-1">
-              <a
-                // onClick={handleForgetPassword}
-                className="link link-hover text-blue-600"
-              >
-                Forgot password?
-              </a>
-            </div>
-
-            <button type="submit" className="btn bg-green-200 ml-1 sm:mr-4 mr-2  mt-3">
-              Login
-            </button>
-           <p className="text-center text-gray-500 font-medium ">— or —</p>
-            <button
-              onClick={handleGoogleSignIn}
-              type="button"
-              className="btn bg-green-200  sm:mr-4 mr-2  ml-1"
-              // disabled={!!passwordError}
+          <div className="relative">
+            <label className="block text-gray-200 font-medium mb-1">Password</label>
+            <input
+              type={show ? "text" : "password"}
+              name="password"
+              placeholder="Enter password"
+              required
+              className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 pr-10"
+            />
+            <span
+              onClick={() => setShow(!show)}
+              className="absolute  right-3 translate-y-1/2 cursor-pointer text-gray-300"
             >
-              <FcGoogle size={20} /> Continue With Google
-            </button>
+              {show ? <FaEye size={18} /> : <IoEyeOff size={18} />}
+            </span>
+          </div>
 
-            <p className="font-semibold text-center pt-3">
-              Don't Have an Account?{" "}
-              <Link className="text-green-600 cursor-pointer" to="/register">
-                Sign Up
-              </Link>{" "}
-            </p>
-          </fieldset>
+          <div className="text-sm text-right">
+            <button
+              type="button"
+              className="text-yellow-400 hover:underline"
+            >
+              Forgot password?
+            </button>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-900 py-2 rounded-lg font-semibold shadow-md transition"
+          >
+            Login
+          </button>
+
+          <p className="text-center text-gray-400 font-medium mt-2">— or —</p>
+
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            className="w-full flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg font-semibold shadow-md transition"
+          >
+            <FcGoogle size={20} /> Continue With Google
+          </button>
+
+          <p className="text-center text-gray-300 mt-4 font-medium">
+            Don't Have an Account?{" "}
+            <Link to="/register" className="text-yellow-400 font-semibold hover:underline">
+              Sign Up
+            </Link>
+          </p>
         </form>
       </div>
     </div>
@@ -146,3 +116,8 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
+
+

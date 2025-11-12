@@ -28,7 +28,9 @@ const router = createBrowserRouter([
          {
          path:"/all-movies",
          element:<AllMovies></AllMovies> ,
-         loader:()=>fetch("http://localhost:3000/movies")  
+         loader:()=>fetch("http://localhost:3000/movies") 
+          // fetch(`http://localhost:3000/movies?genres=Action,Sci-Fi&min=7&max=9`)
+           
         },
          {
          path:"/my-collections",

@@ -2,9 +2,11 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router"; 
+import Loading from "../Loading/Loading";
 
 const AddMovie = () => {
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); //
   const [movieData, setMovieData] = useState({
     title: "",
@@ -28,6 +30,7 @@ const AddMovie = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+      setLoading(true);
     fetch("http://localhost:3000/movies", {
       method: "POST",
       headers: {
@@ -45,10 +48,14 @@ const AddMovie = () => {
         toast.error(" Failed to add movie");
       });
   };
+    if (loading) {
+
+    return <Loading></Loading>;
+  }
 
   return (
-    <section className="max-w-2xl mx-auto mt-12 p-6 bg-gray-800 text-white rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center">🎥 Add a New Movie</h2>
+    <section className="max-w-2xl mx-auto mt-10 mb-12 p-6 bg-gray-800 text-white rounded-2xl shadow-lg">
+      <h2 className="text-2xl font-bold mb-6 text-center text-yellow-400">🎥 Add a New Movie</h2>
 
        <form onSubmit={handleSubmit} className="space-y-4">
         {/* Title */}

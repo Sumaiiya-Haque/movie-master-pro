@@ -11,6 +11,8 @@ import EditMovie from "../pages/Edit/EditMovie";
 import MoviesByGenre from "../pages/MoviesByGenre/MoviesByGenre";
 import PrivateRoute from "../providers/PrivateRoute";
 import MyProfile from "../pages/MyProfile/MyProfile";
+import WatchList from "../pages/WatchList/WatchList";
+// import Watchlist from "../pages/WatchList/WatchList";
 
 
 
@@ -50,7 +52,11 @@ const router = createBrowserRouter([
          {
          path:"/movie-details/:id",
          element:<MovieDetails></MovieDetails> ,
-         loader:({params})=>fetch(`http://localhost:3000/movies/${params.id}`)  
+        //  loader:({params})=>fetch(`http://localhost:3000/movies/${params.id}`,{
+        //   headers:{
+        //     authorization: "hello"
+        //   }
+        //  })  
         },
            {
          path:"/edit-details/:id",
@@ -64,6 +70,12 @@ const router = createBrowserRouter([
          {
          path:"/movies-by-genres",
          element:<MoviesByGenre></MoviesByGenre> 
+        },
+         {
+         path:"/watch-list",
+         element:<PrivateRoute>
+          <WatchList></WatchList>
+         </PrivateRoute>
         },
     ]
   },

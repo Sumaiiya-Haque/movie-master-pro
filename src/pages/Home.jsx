@@ -6,6 +6,7 @@ import RecentlyAdded from "../components/HomePage/RecentlyAdded";
 import GenreSection from "../components/HomePage/GenreSection";
 import AboutPlatform from "../components/HomePage/AboutPlatform";
 import Statistics from "../components/HomePage/Statistics";
+// import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -18,6 +19,7 @@ const Home = () => {
   return (
     <div>
       <Navbar user={user} handleLogout={handleLogout} />
+      
       {/* <Banner></Banner> */}
       <Banner></Banner>
     <Statistics></Statistics>

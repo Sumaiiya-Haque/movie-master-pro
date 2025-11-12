@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link, useNavigate } from "react-router";
+import { Link} from "react-router";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 const MyCollection = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate()
+
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -26,19 +26,8 @@ const MyCollection = () => {
   }, [user]);
 
  
-  // const handleDelete = (id) => {
-  //   fetch(`http://localhost:3000/movies/${id}`, {
-  //     method: "DELETE",
-  //   })
-  //     .then((res) => res.json())
-  //     .then(() => {
-  //       setMovies(movies.filter((m) => m._id !== id));
-  //     });
-  // };
-
-
   // Delete handler
-  const handleDelete = () => {
+  const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -50,18 +39,20 @@ const MyCollection = () => {
     }).then((result) => {
      
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/movies/${movie._id}`, {
+        fetch(`http://localhost:3000/movies/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
             console.log("Delete response:", data);
+
             Swal.fire({
               title: "Deleted!",
               text: "Your movie has been deleted.",
               icon: "success"
             });
-            navigate("/my-collections"); 
+            setMovies(movies.filter((m) => m._id !== id));
+           
           })
           .catch((err) => {
             console.error(err);
@@ -101,7 +92,7 @@ const MyCollection = () => {
                   Edit
                 </Link>
                 <button
-                  onClick={handleDelete}
+                  onClick={()=>handleDelete(movie._id)}
                   className="bg-red-500 px-15 py-1 rounded hover:bg-red-400 text-white font-semibold"
                 >
                   Delete

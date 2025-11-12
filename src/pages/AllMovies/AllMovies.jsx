@@ -1,9 +1,33 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router";
+import { toast } from "react-toastify";
 
 const AllMovies = () => {
   const movies = useLoaderData();
-  console.log(movies)
+  // console.log(movies)
+
+const handleAddToWatchlist = (movie) => {
+  console.log(movie)
+  const storedList = JSON.parse(localStorage.getItem("watchlist")) || [];
+
+  
+  const movieData = {
+    id: movie._id || movie.id,
+    title: movie.title,
+    poster: movie.posterUrl, 
+  };
+
+  const exists = storedList.find((item) => item.id === movieData.id);
+
+  if (!exists) {
+    storedList.push(movieData);
+    localStorage.setItem("watchlist", JSON.stringify(storedList));
+    toast("Added to Watchlist!");
+  } else {
+    toast("Already in Watchlist!");
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-800 text-white py-10 px-5">
@@ -46,6 +70,12 @@ const AllMovies = () => {
               <p className="text-yellow-400 mt-2 font-medium">
                 ⭐ Rating: {movie.rating}
               </p>
+              <button
+  onClick={() => handleAddToWatchlist(movie)}
+  className="bg-yellow-500 text-black px-3 py-1 rounded hover:bg-yellow-600 transition"
+>
+  Add to Watchlist
+</button>
 
               <div className="mt-4 text-center">
                 <Link

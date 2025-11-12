@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../../providers/AuthProvider";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,16 +85,30 @@ const Navbar = () => {
                 Movies By Genres
               </Link>
             </li>
+            <li>
+              <Link
+                to="/watch-list"
+                className="hover:text-yellow-400 transition"
+              >
+               WatchList
+              </Link>
+            </li>
+            {/* <li>
+             <div className="bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen">
+  <h1 className="text-2xl font-bold">Hello World</h1>
+  <ThemeToggle />
+</div>
+            </li> */}
           </ul>
 
           {/* Search */}
-          <div className="hidden md:block">
+          {/* <div className="hidden md:block">
             <input
               type="text"
               placeholder="Search movies..."
               className="px-3 py-1 rounded-full text-black focus:outline-none"
             />
-          </div>
+          </div> */}
 
           {/* Auth / Profile */}
           <div className="flex items-center gap-4">

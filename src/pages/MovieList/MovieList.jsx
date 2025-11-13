@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
-  const [genre, setGenre] = useState(""); // genre filter
-  const [minRating, setMinRating] = useState(""); // min rating
-  const [maxRating, setMaxRating] = useState(""); // max rating
+  const [genre, setGenre] = useState(""); 
+  const [minRating, setMinRating] = useState(""); 
+  const [maxRating, setMaxRating] = useState(""); 
 
-  // fetch movies from server
+ 
   const fetchMovies = () => {
     let url = `https://movie-master-pro-server-two.vercel.app/movies?`;
 
@@ -20,14 +20,14 @@ const MovieList = () => {
       .catch((err) => console.error(err));
   };
 
-  // call fetch on component mount and when filters change
+
   useEffect(() => {
     fetchMovies();
   }, [genre, minRating, maxRating]);
 
   return (
     <div>
-      {/* Filters */}
+      
       <div style={{ marginBottom: "20px" }}>
         <input
           type="text"
@@ -50,7 +50,7 @@ const MovieList = () => {
         <button onClick={fetchMovies}>Filter</button>
       </div>
 
-      {/* Movies List */}
+     
       <div>
         {movies.map((movie) => (
           <div

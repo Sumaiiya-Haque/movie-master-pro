@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         element: <AllMovies></AllMovies>,
         loader: () =>
           fetch("https://movie-master-pro-server-two.vercel.app/movies"),
-        // fetch(`https://movie-master-pro-server-two.vercel.app/movies?genres=Action,Sci-Fi&min=7&max=9`)
+        
       },
       {
         path: "/my-collections",
@@ -57,11 +57,7 @@ const router = createBrowserRouter([
       {
         path: "/movie-details/:id",
         element: <MovieDetails></MovieDetails>,
-        //  loader:({params})=>fetch(`https://movie-master-pro-server-two.vercel.app/movies/${params.id}`,{
-        //   headers:{
-        //     authorization: "hello"
-        //   }
-        //  })
+        //  loader:({params})=>fetch(`https://movie-master-pro-server-two.vercel.app/
       },
       {
         path: "/edit-details/:id",

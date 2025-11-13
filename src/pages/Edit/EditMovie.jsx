@@ -64,7 +64,7 @@ const EditMovie = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log("Update response:", data);
-        toast.success("✅ Movie updated successfully!");
+        toast.success(" Movie updated successfully!");
         navigate("/my-collections"); //
       })
       .catch((err) => {

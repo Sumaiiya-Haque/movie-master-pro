@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
+import Loading from "../../pages/Loading/Loading";
 
 const Banner = () => {
   const [featuredMovies, setFeaturedMovies] = useState([]);
@@ -24,11 +25,7 @@ const Banner = () => {
   }, [featuredMovies]);
 
   if (!featuredMovies.length) {
-    return (
-      <div className="h-screen flex justify-center items-center text-white text-2xl">
-        Loading...
-      </div>
-    );
+    return <Loading></Loading>
   }
 
   const movie = featuredMovies[currentIndex];

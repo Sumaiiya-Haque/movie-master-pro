@@ -17,6 +17,11 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState("");
   const [show, setShow] = useState(false);
 
+
+    if(loading){
+    return <Loading></Loading>
+  }
+
   const handleSignup = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -58,9 +63,7 @@ const Register = () => {
       })
       .catch((e) => toast.error(e.message));
   };
-    if(loading){
-    return <Loading></Loading>
-  }
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center  py-10 px-4 sm:px-6 lg:px-8">

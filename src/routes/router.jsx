@@ -12,12 +12,15 @@ import MoviesByGenre from "../pages/MoviesByGenre/MoviesByGenre";
 import PrivateRoute from "../providers/PrivateRoute";
 import MyProfile from "../pages/MyProfile/MyProfile";
 import WatchList from "../pages/WatchList/WatchList";
+import NotFound from "../pages/NotFound/NotFound";
+import ErrorPage from "../pages/ErrorPage";
 // import Watchlist from "../pages/WatchList/WatchList";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+     errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -87,6 +90,10 @@ const router = createBrowserRouter([
             <WatchList></WatchList>
           </PrivateRoute>
         ),
+      },
+        {
+        path: "*",
+        element: <NotFound />, 
       },
     ],
   },

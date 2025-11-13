@@ -18,6 +18,10 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const emailRef = useRef(null);
 
+   if(loading){
+    return <Loading></Loading>
+  }
+
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -40,9 +44,7 @@ const Login = () => {
       })
       .catch((e) => toast.error(e.message));
   };
-  if(loading){
-    return <Loading></Loading>
-  }
+ 
 
   return (
     <div className="min-h-screen flex items-center justify-center  py-10 px-4 sm:px-6 lg:px-8">

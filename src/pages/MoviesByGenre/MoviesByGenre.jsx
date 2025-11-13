@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../../providers/AuthProvider";
+import Loading from "../Loading/Loading";
 
 const MoviesByGenre = () => {
   const [movies, setMovies] = useState([]);
   const [groupedMovies, setGroupedMovies] = useState({});
+  const [isLoading, setIsLoading] = useState(true); // local loading state
+  // const { loading } = useContext(AuthContext);
 
   useEffect(() => {
     fetch("https://movie-master-pro-server-two.vercel.app/movies")
@@ -11,7 +15,7 @@ const MoviesByGenre = () => {
       .then((data) => {
         setMovies(data);
 
-        // Group by genre dynamically
+       
         const grouped = data.reduce((acc, movie) => {
           const genre = movie.genre || "Unknown";
           if (!acc[genre]) acc[genre] = [];
@@ -19,9 +23,19 @@ const MoviesByGenre = () => {
           return acc;
         }, {});
         setGroupedMovies(grouped);
+        setIsLoading(false); 
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
   }, []);
+
+
+  if ( isLoading) {
+    return <Loading />;
+  }
+ 
 
   return (
     <div className="min-h-screen   py-16 px-6 flex flex-col items-center text-center">
@@ -32,7 +46,7 @@ const MoviesByGenre = () => {
       <div className="w-full max-w-7xl space-y-20">
         {Object.entries(groupedMovies).map(([genre, movies]) => (
           <section key={genre} className="flex flex-col items-center">
-            {/* Genre Title */}
+           
             <div className="flex items-center justify-center gap-3 mb-8">
               <div className="w-3 h-10 bg-yellow-400 rounded"></div>
               <h3 className="text-3xl font-bold text-yellow-300 tracking-wide drop-shadow-md">
@@ -41,7 +55,7 @@ const MoviesByGenre = () => {
               <div className="w-3 h-10 bg-yellow-400 rounded"></div>
             </div>
 
-            {/* Movies Grid Centered */}
+           
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 justify-center place-items-center">
               {movies.map((movie) => (
                 <div

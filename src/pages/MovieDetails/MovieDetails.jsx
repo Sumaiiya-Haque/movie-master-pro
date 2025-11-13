@@ -13,7 +13,7 @@ const MovieDetails = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/movies/${id}`, {
+    fetch(`https://movie-master-pro-server-two.vercel.app/movies/${id}`, {
       headers: {
         authorization: `Bearer ${user?.accessToken}`,
       },
@@ -40,9 +40,12 @@ const MovieDetails = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/movies/${movie._id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://movie-master-pro-server-two.vercel.app/movies/${movie._id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then(() => {
             Swal.fire({
@@ -81,19 +84,39 @@ const MovieDetails = () => {
         {/* Movie Details */}
         <div className="md:w-2/3 flex flex-col justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-3 text-yellow-400">{movie.title}</h1>
+            <h1 className="text-3xl font-bold mb-3 text-yellow-400">
+              {movie.title}
+            </h1>
             <p className="text-gray-500 mb-4">{movie.plotSummary}</p>
 
             <div className="grid grid-cols-2 gap-3 text-gray-500">
-              <p><strong>Genre:</strong> {movie.genre}</p>
-              <p><strong>Release Year:</strong> {movie.releaseYear}</p>
-              <p><strong>Director:</strong> {movie.director}</p>
-              <p><strong>Cast:</strong> {movie.cast}</p>
-              <p><strong>Rating:</strong> ⭐ {movie.rating}</p>
-              <p><strong>Duration:</strong> {movie.duration} mins</p>
-              <p><strong>Language:</strong> {movie.language}</p>
-              <p><strong>Country:</strong> {movie.country}</p>
-              <p><strong>Added By:</strong> {movie.addedBy}</p>
+              <p>
+                <strong>Genre:</strong> {movie.genre}
+              </p>
+              <p>
+                <strong>Release Year:</strong> {movie.releaseYear}
+              </p>
+              <p>
+                <strong>Director:</strong> {movie.director}
+              </p>
+              <p>
+                <strong>Cast:</strong> {movie.cast}
+              </p>
+              <p>
+                <strong>Rating:</strong> ⭐ {movie.rating}
+              </p>
+              <p>
+                <strong>Duration:</strong> {movie.duration} mins
+              </p>
+              <p>
+                <strong>Language:</strong> {movie.language}
+              </p>
+              <p>
+                <strong>Country:</strong> {movie.country}
+              </p>
+              <p>
+                <strong>Added By:</strong> {movie.addedBy}
+              </p>
             </div>
           </div>
 
@@ -130,4 +153,3 @@ const MovieDetails = () => {
 };
 
 export default MovieDetails;
-

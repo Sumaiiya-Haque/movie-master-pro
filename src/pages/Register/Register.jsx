@@ -7,11 +7,12 @@ import { IoEyeOff } from "react-icons/io5";
 import { auth } from "../../firebase/firebase.config";
 import { GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
+import Loading from "../Loading/Loading";
 
 const googleProvider = new GoogleAuthProvider();
 
 const Register = () => {
-  const { createUser, setUser } = useContext(AuthContext);
+  const { createUser, setUser,loading } = useContext(AuthContext);
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState("");
   const [show, setShow] = useState(false);
@@ -57,6 +58,9 @@ const Register = () => {
       })
       .catch((e) => toast.error(e.message));
   };
+    if(loading){
+    return <Loading></Loading>
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center  py-10 px-4 sm:px-6 lg:px-8">

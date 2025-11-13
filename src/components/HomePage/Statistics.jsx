@@ -4,9 +4,24 @@ import { motion } from "framer-motion";
 import Loading from "../../pages/Loading/Loading";
 
 const statsData = [
-  { title: "Total Movies", valueKey: "movies", color: "text-yellow-500", icon: <FaFilm /> },
-  { title: "Total Users", valueKey: "users", color: "text-green-500", icon: <FaUsers /> },
-  { title: "Total Watch Hours", valueKey: "watchHours", color: "text-blue-500", icon: <FaClock /> },
+  {
+    title: "Total Movies",
+    valueKey: "movies",
+    color: "text-yellow-500",
+    icon: <FaFilm />,
+  },
+  {
+    title: "Total Users",
+    valueKey: "users",
+    color: "text-green-500",
+    icon: <FaUsers />,
+  },
+  {
+    title: "Total Watch Hours",
+    valueKey: "watchHours",
+    color: "text-blue-500",
+    icon: <FaClock />,
+  },
 ];
 
 const Statistics = () => {
@@ -20,12 +35,15 @@ const Statistics = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch("http://localhost:3000/movies");
+        const res = await fetch(
+          "https://movie-master-pro-server-two.vercel.app/movies"
+        );
         const data = await res.json();
 
         const totalMovies = data.length;
         const uniqueUsers = new Set(data.map((movie) => movie.addedBy)).size;
-        const totalHours = data.reduce((sum, m) => sum + (m.duration || 0), 0) / 60;
+        const totalHours =
+          data.reduce((sum, m) => sum + (m.duration || 0), 0) / 60;
 
         setStats({
           movies: totalMovies,
@@ -74,7 +92,9 @@ const Statistics = () => {
             <h3 className="text-2xl font-bold mb-3 drop-shadow-lg text-gray-800">
               {item.title}
             </h3>
-            <p className={`text-5xl font-extrabold ${item.color} drop-shadow-sm`}>
+            <p
+              className={`text-5xl font-extrabold ${item.color} drop-shadow-sm`}
+            >
               {stats[item.valueKey]}
             </p>
           </motion.div>
@@ -85,7 +105,3 @@ const Statistics = () => {
 };
 
 export default Statistics;
-
-
-
-

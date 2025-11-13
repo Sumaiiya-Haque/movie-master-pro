@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
-  const [genre, setGenre] = useState("");   // genre filter
+  const [genre, setGenre] = useState(""); // genre filter
   const [minRating, setMinRating] = useState(""); // min rating
   const [maxRating, setMaxRating] = useState(""); // max rating
 
   // fetch movies from server
   const fetchMovies = () => {
-    let url = `http://localhost:3000/movies?`;
+    let url = `https://movie-master-pro-server-two.vercel.app/movies?`;
 
     if (genre) url += `genre=${genre}&`;
     if (minRating) url += `min=${minRating}&`;
     if (maxRating) url += `max=${maxRating}&`;
 
     fetch(url)
-      .then(res => res.json())
-      .then(data => setMovies(data))
-      .catch(err => console.error(err));
+      .then((res) => res.json())
+      .then((data) => setMovies(data))
+      .catch((err) => console.error(err));
   };
 
   // call fetch on component mount and when filters change
@@ -53,7 +53,14 @@ const MovieList = () => {
       {/* Movies List */}
       <div>
         {movies.map((movie) => (
-          <div key={movie._id} style={{ border: "1px solid gray", margin: "10px", padding: "10px" }}>
+          <div
+            key={movie._id}
+            style={{
+              border: "1px solid gray",
+              margin: "10px",
+              padding: "10px",
+            }}
+          >
             <h3>{movie.title}</h3>
             <p>Genre: {movie.genre}</p>
             <p>Rating: {movie.rating}</p>

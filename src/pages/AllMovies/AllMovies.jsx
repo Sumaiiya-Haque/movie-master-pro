@@ -18,7 +18,7 @@ const AllMovies = () => {
   const fetchMovies = async () => {
     try {
       setLoading(true);
-      let url = `http://localhost:3000/movies?`;
+      let url = `https://movie-master-pro-server-two.vercel.app/movies?`;
       if (genre) url += `genre=${genre}&`;
       if (minRating) url += `min=${minRating}&`;
       if (maxRating) url += `max=${maxRating}&`;
@@ -62,12 +62,12 @@ const AllMovies = () => {
 
   return (
     <div className="min-h-screen py-10 px-5">
-      {/* 1️⃣ Hero / Title */}
+      {/* 1️ Hero / Title */}
       <h1 className="text-4xl font-extrabold text-center text-yellow-400 mb-10 drop-shadow">
         🎬 Explore All Movies
       </h1>
 
-      {/* 2️⃣ Filter Section */}
+      {/* 2️ Filter Section */}
       <div className="mb-10 flex flex-col sm:flex-row gap-3 justify-center items-center">
         <input
           type="text"
@@ -98,7 +98,7 @@ const AllMovies = () => {
         </button>
       </div>
 
-      {/* 3️⃣ Movies Grid */}
+      {/* 3️ Movies Grid */}
       {movies.length === 0 ? (
         <p className="text-center text-gray-500">No movies found.</p>
       ) : (
@@ -123,12 +123,15 @@ const AllMovies = () => {
               </div>
 
               <div className="p-5">
-                <h2 className="text-xl font-bold text-gray-800 mb-1">{movie.title}</h2>
+                <h2 className="text-xl font-bold text-gray-800 mb-1">
+                  {movie.title}
+                </h2>
                 <p className="text-sm text-gray-500 mb-1">
                   🎭 Genre: <span className="font-medium">{movie.genre}</span>
                 </p>
                 <p className="text-sm text-gray-500 mb-3">
-                  📅 Year: <span className="font-medium">{movie.releaseYear}</span>
+                  📅 Year:{" "}
+                  <span className="font-medium">{movie.releaseYear}</span>
                 </p>
 
                 {user && (
@@ -156,26 +159,3 @@ const AllMovies = () => {
 };
 
 export default AllMovies;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -8,13 +8,10 @@ const RecentlyAdded = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/movies") 
+    fetch("https://movie-master-pro-server-two.vercel.app/movies")
       .then((res) => res.json())
       .then((data) => {
-        
-        const recent6 = data
-          .sort((a, b) => b.year - a.year)
-          .slice(0, 6);
+        const recent6 = data.sort((a, b) => b.year - a.year).slice(0, 6);
         setMovies(recent6);
         setLoading(false);
       })
@@ -25,12 +22,12 @@ const RecentlyAdded = () => {
   }, []);
 
   if (loading) {
-    return <Loading></Loading>
+    return <Loading></Loading>;
   }
 
   return (
     <section className="text-yellow-400 py-20 px-6">
-     <motion.h2
+      <motion.h2
         className="text-4xl lg:text-5xl font-bold text-center mb-12"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -58,15 +55,16 @@ const RecentlyAdded = () => {
                 <h3 className="text-lg font-semibold text-gray-100 dark:text-gray-100">
                   {movie.title}
                 </h3>
-                    <Link
-                to={`/movie-details/${movie._id}`}
-                className="block text-left mt-3    text-yellow-300 py-2 rounded-lg font-semibold text-sm transition-all duration-200 shadow-md"
-              >
-                View Details →
-              </Link>
-                <p className="text-sm text-gray-300 dark:text-gray-400">{movie.year}</p>
+                <Link
+                  to={`/movie-details/${movie._id}`}
+                  className="block text-left mt-3    text-yellow-300 py-2 rounded-lg font-semibold text-sm transition-all duration-200 shadow-md"
+                >
+                  View Details →
+                </Link>
+                <p className="text-sm text-gray-300 dark:text-gray-400">
+                  {movie.year}
+                </p>
               </div>
-            
             </div>
           </motion.div>
         ))}
@@ -76,10 +74,6 @@ const RecentlyAdded = () => {
 };
 
 export default RecentlyAdded;
-
-
-
-
 
 // import React from "react";
 // import { motion } from "framer-motion";
@@ -133,4 +127,3 @@ export default RecentlyAdded;
 // };
 
 // export default RecentlyAdded;
-

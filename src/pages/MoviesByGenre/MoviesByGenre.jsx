@@ -6,7 +6,7 @@ const MoviesByGenre = () => {
   const [groupedMovies, setGroupedMovies] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:3000/movies")
+    fetch("https://movie-master-pro-server-two.vercel.app/movies")
       .then((res) => res.json())
       .then((data) => {
         setMovies(data);
@@ -66,16 +66,18 @@ const MoviesByGenre = () => {
                     <h4 className="text-lg font-bold text-yellow-300 mb-1 truncate">
                       {movie.title}
                     </h4>
-                    <p className="text-sm text-gray-400">📅 {movie.releaseYear}</p>
+                    <p className="text-sm text-gray-400">
+                      📅 {movie.releaseYear}
+                    </p>
                     <p className="text-sm text-gray-300 mt-2 line-clamp-2">
                       {movie.plotSummary}
                     </p>
-                      <Link
-                                    to={`/movie-details/${movie._id}`}
-                                    className="block text-center mt-3 w-full bg-gray-800 hover:bg-gray-900 text-yellow-300 py-2 rounded-lg font-semibold transition-all duration-200 shadow-md"
-                                  >
-                                    View Details →
-                                  </Link>
+                    <Link
+                      to={`/movie-details/${movie._id}`}
+                      className="block text-center mt-3 w-full bg-gray-800 hover:bg-gray-900 text-yellow-300 py-2 rounded-lg font-semibold transition-all duration-200 shadow-md"
+                    >
+                      View Details →
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -88,6 +90,3 @@ const MoviesByGenre = () => {
 };
 
 export default MoviesByGenre;
-
-
-

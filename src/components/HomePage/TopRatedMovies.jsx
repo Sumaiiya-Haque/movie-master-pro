@@ -6,13 +6,10 @@ const TopRatedMovies = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/movies")
+    fetch("https://movie-master-pro-server-two.vercel.app/movies")
       .then((res) => res.json())
       .then((data) => {
-    
-        const top5 = data
-          .sort((a, b) => b.rating - a.rating)
-          .slice(0, 5);
+        const top5 = data.sort((a, b) => b.rating - a.rating).slice(0, 5);
         setMovies(top5);
         setLoading(false);
       })
@@ -32,7 +29,7 @@ const TopRatedMovies = () => {
 
   return (
     <section className="text-yellow-400 py-20 px-6">
-        <motion.h2
+      <motion.h2
         className="text-4xl lg:text-5xl font-bold text-center mb-12"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -58,7 +55,9 @@ const TopRatedMovies = () => {
             <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100">
               {movie.title}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{movie.genre}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {movie.genre}
+            </p>
             <p className="text-yellow-500 font-bold mt-1">⭐ {movie.rating}</p>
           </div>
         ))}
@@ -68,11 +67,6 @@ const TopRatedMovies = () => {
 };
 
 export default TopRatedMovies;
-
-
-
-
-
 
 // import React from "react";
 

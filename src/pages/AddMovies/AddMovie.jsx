@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router"; 
+import { useNavigate } from "react-router";
 import Loading from "../Loading/Loading";
 
 const AddMovie = () => {
@@ -30,8 +30,8 @@ const AddMovie = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      setLoading(true);
-    fetch("http://localhost:3000/movies", {
+    setLoading(true);
+    fetch("https://movie-master-pro-server-two.vercel.app/movies", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -41,36 +41,37 @@ const AddMovie = () => {
       .then((res) => res.json())
       .then((data) => {
         toast.success("Successfully added Movie!");
-        navigate("/my-collections"); 
+        navigate("/my-collections");
       })
       .catch((err) => {
         console.log(err);
         toast.error(" Failed to add movie");
       });
   };
-    if (loading) {
-
+  if (loading) {
     return <Loading></Loading>;
   }
 
   return (
     <section className="max-w-2xl mx-auto mt-10 mb-12 p-6 bg-gray-800 text-white rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center text-yellow-400">🎥 Add a New Movie</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-yellow-400">
+        🎥 Add a New Movie
+      </h2>
 
-       <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         {/* Title */}
         <input
           type="text"
           name="title"
           placeholder="Movie Title"
-          value={movieData.title} 
+          value={movieData.title}
           onChange={handleChange}
           className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none"
           required
         />
 
-         {/* Genre */}
-         <input
+        {/* Genre */}
+        <input
           type="text"
           name="genre"
           placeholder="Genre (e.g. Sci-Fi)"
@@ -81,7 +82,7 @@ const AddMovie = () => {
         />
 
         {/* Release Year */}
-       <input
+        <input
           type="number"
           name="releaseYear"
           placeholder="Release Year"
@@ -90,8 +91,7 @@ const AddMovie = () => {
           className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
         />
 
-
-      <input
+        <input
           type="text"
           name="director"
           placeholder="Director"
@@ -100,8 +100,8 @@ const AddMovie = () => {
           className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
         />
 
-         {/* Cast */}
-       <input
+        {/* Cast */}
+        <input
           type="text"
           name="cast"
           placeholder="Cast (comma-separated)"
@@ -110,8 +110,8 @@ const AddMovie = () => {
           className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
         />
 
-         {/* Rating */}
-         <input
+        {/* Rating */}
+        <input
           type="number"
           name="rating"
           placeholder="Rating (e.g. 8.8)"
@@ -122,7 +122,7 @@ const AddMovie = () => {
         />
 
         {/* Duration */}
-       <input
+        <input
           type="number"
           name="duration"
           placeholder="Duration (in minutes)"
@@ -131,8 +131,8 @@ const AddMovie = () => {
           className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
         />
 
-         {/* Plot Summary */}
-         <textarea
+        {/* Plot Summary */}
+        <textarea
           name="plotSummary"
           placeholder="Plot Summary..."
           value={movieData.plotSummary}
@@ -141,8 +141,8 @@ const AddMovie = () => {
           rows="4"
         ></textarea>
 
-         {/* Poster URL */}
-         <input
+        {/* Poster URL */}
+        <input
           type="text"
           name="posterUrl"
           placeholder="Poster Image URL"
@@ -151,8 +151,8 @@ const AddMovie = () => {
           className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
         />
 
-         {/* Language */}
-         <input
+        {/* Language */}
+        <input
           type="text"
           name="language"
           placeholder="Language"
@@ -161,8 +161,8 @@ const AddMovie = () => {
           className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
         />
 
-         {/* Country */}
-       <input
+        {/* Country */}
+        <input
           type="text"
           name="country"
           placeholder="Country"
@@ -171,8 +171,8 @@ const AddMovie = () => {
           className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600"
         />
 
-         {/* Added By */}
-         <input
+        {/* Added By */}
+        <input
           type="email"
           name="addedBy"
           placeholder="Added by (email)"
@@ -193,8 +193,3 @@ const AddMovie = () => {
 };
 
 export default AddMovie;
-
-
-
-
-

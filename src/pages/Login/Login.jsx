@@ -7,11 +7,12 @@ import { FaEye } from "react-icons/fa";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 import { auth } from "../../firebase/firebase.config";
+import Loading from "../Loading/Loading";
 
 const googleProvider = new GoogleAuthProvider();
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn,loading } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -39,6 +40,9 @@ const Login = () => {
       })
       .catch((e) => toast.error(e.message));
   };
+  if(loading){
+    return <Loading></Loading>
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center  py-10 px-4 sm:px-6 lg:px-8">

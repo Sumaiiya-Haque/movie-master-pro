@@ -8,17 +8,32 @@ const MyCollection = () => {
   const { user } = useContext(AuthContext);
   const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
-    if (!user?.email) return;
+  // useEffect(() => {
+  //   if (!user?.email) return;
 
-    fetch("http://localhost:3000/movies")
-      .then((res) => res.json())
-      .then((data) => {
-        const myMovies = data.filter((movie) => movie.addedBy === user.email);
-        setMovies(myMovies);
-      })
-      .catch((err) => console.error(err));
-  }, [user]);
+  //   fetch("https://movie-master-pro-server-two.vercel.app/movies")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       const myMovies = data.filter((movie) => movie.addedBy === user.email);
+  //       setMovies(myMovies);
+  //     })
+  //     .catch((err) => console.error(err));
+  // }, [user]);
+
+
+  useEffect(() => {
+  if (!user?.email) return;
+
+  fetch(`https://movie-master-pro-server-two.vercel.app/my-collections?email=${user.email}`)
+    .then((res) => res.json())
+    .then((data) => setMovies(data))
+    .catch((err) => console.error(err));
+}, [user]);
+
+
+
+
+
 
   // Delete handler
   const handleDelete = (id) => {
@@ -29,10 +44,12 @@ const MyCollection = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/movies/${id}`, { method: "DELETE" })
+        fetch(`https://movie-master-pro-server-two.vercel.app/movies/${id}`, {
+          method: "DELETE",
+        })
           .then((res) => res.json())
           .then(() => {
             Swal.fire("Deleted!", "Your movie has been deleted.", "success");
@@ -48,7 +65,9 @@ const MyCollection = () => {
 
   return (
     <section className="min-h-screen bg-gray-900 text-white p-8">
-      <h2 className="text-3xl font-bold text-center mb-8 text-yellow-400">🎞 My Collection</h2>
+      <h2 className="text-3xl font-bold text-center mb-8 text-yellow-400">
+        🎞 My Collection
+      </h2>
 
       {movies.length === 0 ? (
         <p className="text-center text-gray-400">
@@ -70,7 +89,9 @@ const MyCollection = () => {
               </div>
               <div className="p-4 flex flex-col justify-between h-52">
                 <div>
-                  <h3 className="text-xl font-semibold mb-1 truncate">{movie.title}</h3>
+                  <h3 className="text-xl font-semibold mb-1 truncate">
+                    {movie.title}
+                  </h3>
                   <p className="text-gray-400 mb-2">{movie.genre}</p>
                 </div>
                 <div className="flex justify-between gap-2">
@@ -103,5 +124,3 @@ const MyCollection = () => {
 };
 
 export default MyCollection;
-
-

@@ -8,12 +8,11 @@ const Banner = () => {
 
   //  Fetch featured movies
   useEffect(() => {
-    fetch("http://localhost:3000/movies")
+    fetch("https://movie-master-pro-server-two.vercel.app/movies")
       .then((res) => res.json())
       .then((data) => setFeaturedMovies(data))
       .catch((err) => console.error(err));
   }, []);
-
 
   useEffect(() => {
     if (featuredMovies.length > 1) {
@@ -126,9 +125,6 @@ const Banner = () => {
 
 export default Banner;
 
-
-
-
 // import { useEffect, useState } from "react";
 // import { Swiper, SwiperSlide } from "swiper/react";
 // import { Navigation, Pagination, Autoplay } from "swiper";
@@ -142,7 +138,7 @@ export default Banner;
 
 //   // 🔹 Fetch featured movies
 //   useEffect(() => {
-//     fetch("http://localhost:3000/movies") // আপনার API URL
+//     fetch("https://movie-master-pro-server-two.vercel.app/movies") // আপনার API URL
 //       .then((res) => res.json())
 //       .then((data) => setFeaturedMovies(data))
 //       .catch((err) => console.error(err));
@@ -202,14 +198,6 @@ export default Banner;
 
 // export default Banner;
 
-
-
-
-
-
-
-
-
 // import { useEffect, useState } from "react";
 // import { motion, AnimatePresence } from "framer-motion";
 // import { Link } from "react-router";
@@ -218,15 +206,13 @@ export default Banner;
 //   const [featuredMovies, setFeaturedMovies] = useState([]);
 //   const [currentIndex, setCurrentIndex] = useState(0);
 
-  
 //   useEffect(() => {
-//     fetch("http://localhost:3000/movies") 
+//     fetch("https://movie-master-pro-server-two.vercel.app/movies")
 //       .then((res) => res.json())
 //       .then((data) => setFeaturedMovies(data))
 //       .catch((err) => console.error(err));
 //   }, []);
 
- 
 //   useEffect(() => {
 //     if (featuredMovies.length > 1) {
 //       const interval = setInterval(() => {
@@ -313,12 +299,3 @@ export default Banner;
 // };
 
 // export default Banner;
-
-
-
-
-
-
-
-
-

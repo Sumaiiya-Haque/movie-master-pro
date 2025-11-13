@@ -7,9 +7,8 @@ const EditMovie = () => {
   const data = useLoaderData();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const movie = data?.result || data; 
+  const movie = data?.result || data;
 
- 
   const [movieData, setMovieData] = useState({
     title: movie?.title || "",
     genre: movie?.genre || "",
@@ -25,7 +24,6 @@ const EditMovie = () => {
     addedBy: movie?.addedBy || user?.email || "",
   });
 
-  
   useEffect(() => {
     if (movie) {
       setMovieData({
@@ -45,28 +43,29 @@ const EditMovie = () => {
     }
   }, [movie, user]);
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setMovieData({ ...movieData, [name]: value });
   };
 
- 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:3000/movies/${movie._id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(movieData),
-    })
+    fetch(
+      `https://movie-master-pro-server-two.vercel.app/movies/${movie._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(movieData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log("Update response:", data);
         toast.success("✅ Movie updated successfully!");
-        navigate("/my-collections"); // 
+        navigate("/my-collections"); //
       })
       .catch((err) => {
         console.error(err);
@@ -76,7 +75,9 @@ const EditMovie = () => {
 
   return (
     <section className="max-w-2xl mx-auto mt-8 mb-12 p-6 bg-gray-800 text-white rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center text-yellow-400">🎥 Edit Movie</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-yellow-400">
+        🎥 Edit Movie
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Title */}

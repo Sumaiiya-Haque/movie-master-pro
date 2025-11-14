@@ -11,10 +11,11 @@ const RecentlyAdded = () => {
     fetch("https://movie-master-pro-server-two.vercel.app/movies")
       .then((res) => res.json())
       .then((data) => {
-        const recent6 = data.sort((a, b) => b.year - a.year).slice(0, 6);
-        setMovies(recent6);
-        setLoading(false);
-      })
+  const recent6 = data.slice(-6).reverse();
+  setMovies(recent6);
+  setLoading(false);
+})
+
       .catch((err) => {
         console.error("Error fetching movies:", err);
         setLoading(false);

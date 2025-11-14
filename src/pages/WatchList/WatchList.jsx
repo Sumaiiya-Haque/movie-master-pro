@@ -16,7 +16,10 @@ const WatchList = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">My Watchlist</h1>
+     
+      <h2 className="text-4xl text-center font-extrabold text-yellow-400 mb-16 drop-shadow-lg tracking-wide">
+        🎬 My Watchlist
+      </h2>
       {watchlist.length === 0 ? (
         <p className="text-center text-gray-500">Your watchlist is empty.</p>
       ) : (

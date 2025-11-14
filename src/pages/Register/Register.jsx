@@ -22,48 +22,119 @@ const Register = () => {
     return <Loading></Loading>
   }
 
-  const handleSignup = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const photo = form.photo.value;
-    const email = form.email.value;
-    const password = form.password.value;
+  // const handleSignup = (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const name = form.name.value;
+  //   const photo = form.photo.value;
+  //   const email = form.email.value;
+  //   const password = form.password.value;
 
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const isLengthValid = password.length >= 6;
+  //   const hasUpperCase = /[A-Z]/.test(password);
+  //   const hasLowerCase = /[a-z]/.test(password);
+  //   const isLengthValid = password.length >= 6;
 
-    if (!hasUpperCase) return setPasswordError("Password must contain at least one uppercase letter!");
-    if (!hasLowerCase) return setPasswordError("Password must contain at least one lowercase letter!");
-    if (!isLengthValid) return setPasswordError("Password must be at least 6 characters long!");
-    setPasswordError("");
+  //   if (!hasUpperCase) return setPasswordError("Password must contain at least one uppercase letter!");
+  //   if (!hasLowerCase) return setPasswordError("Password must contain at least one lowercase letter!");
+  //   if (!isLengthValid) return setPasswordError("Password must be at least 6 characters long!");
+  //   setPasswordError("");
 
-    createUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        updateProfile(user, { displayName: name, photoURL: photo })
-          .then(() => {
-            setUser({ ...user, displayName: name, photoURL: photo });
-            toast.success("Successfully Signed Up!");
-            navigate("/");
-          })
-          .catch((error) => toast.error(error.message));
-      })
-      .catch((e) => toast.error(e.message));
-  };
+  //   createUser(email, password)
+  //     .then((result) => {
+  //       const user = result.user;
+  //       updateProfile(user, { displayName: name, photoURL: photo })
+  //         .then(() => {
+  //           setUser({ ...user, displayName: name, photoURL: photo });
+  //           toast.success("Successfully Signed Up!");
+  //           navigate("/");
+  //         })
+  //         .catch((error) => toast.error(error.message));
+  //     })
+  //     .catch((e) => toast.error(e.message));
+  // };
+const handleSignup = async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const name = form.name.value;
+  const photo = form.photo.value;
+  const email = form.email.value;
+  const password = form.password.value;
 
-  const handleGoogleSignIn = () => {
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const user = result.user;
-        setUser(user);
-        toast.success("Successfully Signed Up with Google!");
-        navigate("/");
-      })
-      .catch((e) => toast.error(e.message));
-  };
+  // Firebase createUser
+  createUser(email, password)
+    .then((result) => {
+      const user = result.user;
+      updateProfile(user, { displayName: name, photoURL: photo })
+        .then(async () => {
+          setUser({ ...user, displayName: name, photoURL: photo });
+          
+          // 🔹 MongoDB register call
+          const registerData = { name, email, password, photo };
+          try {
+            const res = await fetch("https://movie-master-pro-server-two.vercel.app/register", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(registerData),
+            });
+            const data = await res.json();
+            console.log("Backend response:", data);
+          } catch (err) {
+            console.error("Backend register failed:", err);
+          }
+
+          toast.success("Successfully Signed Up!");
+          navigate("/");
+        })
+        .catch((error) => toast.error(error.message));
+    })
+    .catch((e) => toast.error(e.message));
+};
+
+
+const handleGoogleSignIn = () => {
+  signInWithPopup(auth, googleProvider)
+    .then(async (result) => {
+      const user = result.user;
+      setUser(user);
+
+      // 🔹 MongoDB register call
+      const registerData = {
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL
+      };
+
+      try {
+        const res = await fetch("http://localhost:3000/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(registerData)
+        });
+        const data = await res.json();
+        console.log("Backend response (Google):", data);
+      } catch (err) {
+        console.error("Backend register failed (Google):", err);
+      }
+
+      toast.success("Successfully Signed Up with Google!");
+      navigate("/");
+    })
+    .catch((e) => toast.error(e.message));
+};
+
+
+  // const handleGoogleSignIn = () => {
+  //   signInWithPopup(auth, googleProvider)
+  //     .then((result) => {
+  //       const user = result.user;
+  //       setUser(user);
+  //       toast.success("Successfully Signed Up with Google!");
+  //       navigate("/");
+  //     })
+  //     .catch((e) => toast.error(e.message));
+  // };
   
+
 
   return (
     <div className="min-h-screen flex items-center justify-center  py-10 px-4 sm:px-6 lg:px-8">

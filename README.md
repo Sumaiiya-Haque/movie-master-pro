@@ -2,10 +2,11 @@
 
 **MovieMaster Pro** is a modern movie management system where users can browse, add, edit, and organize their personal movie collections.
 
-**Live Site:** [https://moviemaster-pro.netlify.app](#)  
-**Server URL:** [https://movie-master-pro-server.vercel.app](#)  
-**Client Repo:** [GitHub Link](#)  
-**Server Repo:** [GitHub Link](#)
+**Live Site:** [https://movie-master-pro-client.netlify.app/](#)  
+**Server URL:** [https://movie-master-pro-server-two.vercel.app/
+](#)  
+**Client Repo:** [https://github.com/Sumaiiya-Haque/movie-master-pro.git](#)  
+**Server Repo:** [https://github.com/Sumaiiya-Haque/movie-master-pro-server.git](#)
 
 ---
 

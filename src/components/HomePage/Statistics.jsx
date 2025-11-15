@@ -21,7 +21,7 @@ const Statistics = () => {
         const movies = await movieRes.json();
 
 
-        const userRes = await fetch("http://localhost:3000/users/count")
+        const userRes = await fetch("https://movie-master-pro-server-two.vercel.app/users/count")
         const { totalUsers } = await userRes.json();
 
         const totalMovies = movies.length;
@@ -38,7 +38,7 @@ const Statistics = () => {
     fetchStats();
   }, []); 
 
-  if (loading) return <Loading />;
+  // if (loading) return <Loading />;
 
   return (
     <section className="text-center py-16 overflow-hidden">

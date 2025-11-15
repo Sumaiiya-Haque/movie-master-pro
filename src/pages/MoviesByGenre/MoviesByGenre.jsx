@@ -38,7 +38,7 @@ const MoviesByGenre = () => {
  
 
   return (
-    <div className="min-h-screen   py-16 px-6 flex flex-col items-center text-center">
+    <div className="min-h-screen max-w-[1200px]  py-16 px-6 flex flex-col items-center text-center">
       <h2 className="text-4xl font-extrabold text-yellow-400 mb-16 drop-shadow-lg tracking-wide">
         🎬 Movies by Genre
       </h2>

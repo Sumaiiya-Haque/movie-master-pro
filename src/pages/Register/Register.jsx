@@ -68,7 +68,7 @@ const handleSignup = async (e) => {
         .then(async () => {
           setUser({ ...user, displayName: name, photoURL: photo });
           
-          // 🔹 MongoDB register call
+          
           const registerData = { name, email, password, photo };
           try {
             const res = await fetch("https://movie-master-pro-server-two.vercel.app/register", {
@@ -105,7 +105,7 @@ const handleGoogleSignIn = () => {
       };
 
       try {
-        const res = await fetch("http://localhost:3000/register", {
+        const res = await fetch("https://movie-master-pro-server-two.vercel.app/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(registerData)
@@ -137,15 +137,15 @@ const handleGoogleSignIn = () => {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center  py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-gray-800 p-8 rounded-2xl shadow-xl">
+    <div className=" flex items-center justify-center  py-10 px-4 sm:px-6 lg:px-8">
+      <div className=" bg-gray-800  p-8 rounded-2xl shadow-xl">
         <h2 className="text-3xl font-extrabold text-center text-yellow-400 mb-6">
           Sign Up
         </h2>
 
-        <form onSubmit={handleSignup} className="space-y-5">
+        <form onSubmit={handleSignup} className="space-y-5 ">
           <div>
-            <label className="block text-gray-200 font-medium mb-1">Name</label>
+            <label className=" text-gray-200 font-medium mb-1">Name</label>
             <input
               type="text"
               name="name"
@@ -156,7 +156,7 @@ const handleGoogleSignIn = () => {
           </div>
 
           <div>
-            <label className="block text-gray-200 font-medium mb-1">Photo URL</label>
+            <label className=" text-gray-200 font-medium mb-1">Photo URL</label>
             <input
               type="url"
               name="photo"
@@ -167,7 +167,7 @@ const handleGoogleSignIn = () => {
           </div>
 
           <div>
-            <label className="block text-gray-200 font-medium mb-1">Email</label>
+            <label className=" text-gray-200 font-medium mb-1">Email</label>
             <input
               type="email"
               name="email"
@@ -178,7 +178,7 @@ const handleGoogleSignIn = () => {
           </div>
 
           <div className="relative">
-            <label className="block text-gray-200 font-medium mb-1">Password</label>
+            <label className=" text-gray-200 font-medium mb-1">Password</label>
             <input
               type={show ? "text" : "password"}
               name="password"

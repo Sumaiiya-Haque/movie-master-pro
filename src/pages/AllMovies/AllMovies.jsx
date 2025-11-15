@@ -82,9 +82,16 @@ const AllMovies = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="all-movies-container p-4">
+    <div className=" p-4 all-movies-container max-w-[1200px]">
       {/* Filters */}
-      <div className="filters flex flex-col sm:flex-row gap-4 mb-6">
+    
+
+      {/* Movies list */}
+      <h1 className="text-4xl font-extrabold text-center text-yellow-400 mb-10 drop-shadow">
+        🎬 Explore All Movies
+      </h1>
+
+        <div className="filters flex flex-col sm:flex-row gap-4 mb-6">
         {/* <input
           type="text"
           placeholder="Filter by name..."
@@ -123,15 +130,10 @@ const AllMovies = () => {
         />
       </div>
 
-      {/* Movies list */}
-      <h1 className="text-4xl font-extrabold text-center text-yellow-400 mb-10 drop-shadow">
-        🎬 Explore All Movies
-      </h1>
-
       {filteredMovies.length === 0 ? (
         <p className="text-center text-gray-500">No movies found</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {filteredMovies.map((movie) => (
             <div
               key={movie._id || movie.id}

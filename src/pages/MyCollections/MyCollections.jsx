@@ -64,9 +64,9 @@ const MyCollection = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gray-900 text-white p-8">
-      <h2 className="text-3xl font-bold text-center mb-8 text-yellow-400">
-        🎞 My Collection
+    <section className="min-h-screen w-full  text-white p-8">
+      <h2 className="text-4xl font-extrabold text-yellow-400 mb-16 drop-shadow-lg tracking-wide">
+        🎬 My Collections
       </h2>
 
       {movies.length === 0 ? (

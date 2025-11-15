@@ -19,9 +19,9 @@ const Home = () => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
-  if (loading) {
-    return <Loading />; 
-  }
+  // if (loading) {
+  //   return <Loading />; 
+  // }
 
   const handleLogout = () => {
     setUser(null);
@@ -47,42 +47,7 @@ export default Home;
 
 
 
-// import { toast } from "react-toastify";
-// import Loading from "../components/Loading/Loading";
-// import { useEffect, useState } from "react";
 
-// const Home = () => {
-//   const [user, setUser] = useState(null);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-    
-//     setTimeout(() => setLoading(false), 1000);
-//   }, []);
-
-//   if (loading) {
-//     return <Loading />; 
-//   }
-
-//   const handleLogout = () => {
-//     setUser(null);
-//     toast.success("Logged out successfully!");
-//   };
-
-//   return (
-//     <div>
-//       <Navbar user={user} handleLogout={handleLogout} />
-//       <Banner />
-//       <Statistics />
-//       <TopRatedMovies />
-//       <RecentlyAdded />
-//       <GenreSection />
-//       <AboutPlatform />
-//     </div>
-//   );
-// };
-
-// export default Home;
 
 
 

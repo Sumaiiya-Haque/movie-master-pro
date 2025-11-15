@@ -15,7 +15,7 @@ const WatchList = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 ">
      
       <h2 className="text-4xl text-center font-extrabold text-yellow-400 mb-16 drop-shadow-lg tracking-wide">
         🎬 My Watchlist
@@ -23,11 +23,11 @@ const WatchList = () => {
       {watchlist.length === 0 ? (
         <p className="text-center text-gray-500">Your watchlist is empty.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
           {watchlist.map((movie) => (
             <div
               key={movie.id}
-              className="border rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              className="border border-yellow-400 rounded-lg  overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
             >
               <div className="h-80 w-full overflow-hidden">
                 <img
